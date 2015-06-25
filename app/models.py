@@ -8,6 +8,10 @@ class Entry(db.Model):
     content = db.Column(db.Text)
     pub_date = db.Column(db.DateTime, index = True)
 
+    @classmethod
+    def all_entries(cls):
+        return cls.query.order_by(cls.pub_date.desc())
+
     def __repr__(self):
-        return '<Entry titile: %r>' % (self.title)
+        return '<titile: %r> <content: %r>' % (self.title, self.content)
 
