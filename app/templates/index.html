@@ -2,11 +2,13 @@
 
 {% block content %}
 
+{% include 'flash.html' %}
+
 {% block title %}Blog entries{% endblock %}
 
 {% for entry in entries %}
 <h3>
-    <a href="http://www.baidu.com">{{ entry.title }}</a>
+    <a href='{{ url_for('entry', id = entry.id) }}'>{{ entry.title }}</a>
 </h3>
 <p>Created {{ entry.pub_date.strftime('%m/%d/%Y at %G:%I%p') }}</p>
 {% endfor %}
