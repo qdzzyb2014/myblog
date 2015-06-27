@@ -11,16 +11,22 @@ from app import app, db
 @app.route('/index')
 @app.route('/blog')
 def index():
-    #entries  = Entry.all_entries().all()
-    entries = []
-    ti = 'title '
-    body = 'body '
-    time = datetime.now()
-    for i in range(5):
-        e = Entry(title = ti+str(i), content = body +str(i),
-                 pub_date = time + timedelta(seconds = i))
-        entries.append(e)
+    entries  = Entry.all_entries().all()
     return render_template('index.html', entries = entries) 
+
+@app.route('/entry/<int:id>')
+def entry(id):
+    if id < 0:
+        flash("Sorry! Con't find this entry!")
+        return redirect('index')
+    entry = Entry.query.filter_by(id = id).first()
+    if entry == None:
+        flash("Sorry! Con't find this entry!")
+        return redirect('index')
+    return render_template('entry.html', entry = entry)
+
+
+
 
 #@app.route('login', methods = ['POST', 'GET'])
 #def login():

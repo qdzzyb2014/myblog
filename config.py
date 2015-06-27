@@ -10,6 +10,6 @@ CSRF_ENABLED = True
 SUPER_USER = "qdzzyb"
 SECRET_KEY = "you-will-never-guess"
 #init database
-SQLALCHEMY_DATABASE_URL = 'sqlite:///' + os.path.join(basedir, 'app.db')
+SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'app.db')
 SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
 
