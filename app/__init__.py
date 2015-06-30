@@ -9,7 +9,7 @@ app = Flask(__name__)
 app.config.from_object('config')
 db = SQLAlchemy(app)
 lm = LoginManager()
-lm.init_app(app)
+lm.setup_app(app)
 
 
 from app import views, models

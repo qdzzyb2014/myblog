@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% include 'flash.html' %}
+<h3>Login in</h3>
+<form action="" method="post" name="login">
+{{ form.hidden_tag() }}
+
+<p>user_name:<p>
+{{ form.user_name(size = 19) }}
+{% for error in form.errors.user_name %}
+<span style="color: red;">{{ error }}</span>
+{% endfor %}<br>
+
+<p>password:<p>
+{{ form.password(size = 15) }}
+
+{% for error in form.errors.password %}
+<span style="color: red;">{{ error }}</span>
+{% endfor %}<br>
+
+<p>{{ form.remember_me }} Remember me?</p>
+
+<p><input type="submit" value="Sign In"></p>
+</form>
+
+{% endblock %}
+

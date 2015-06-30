@@ -1,4 +1,6 @@
 vevn/*
 *.pyc
 *.db
-
+config.py~
+create_super_user.py
+db_repository
