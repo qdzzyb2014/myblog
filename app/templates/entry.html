@@ -5,7 +5,7 @@
 <div>
   <p><a href="{{ url_for('index') }}">Back</a></p>
   {% if current_user.is_authenticated() %}
-  <p><a href="{{ url_for('index') }}">Delete</a></p>
+  <p><a href="{{ url_for('delete', id = entry.id) }}">Delete</a></p>
   <p><a href="{{ url_for('edit', id = entry.id) }}">Edit</a></p>
   {% endif %}
 </div>

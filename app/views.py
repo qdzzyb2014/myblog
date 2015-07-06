@@ -99,3 +99,10 @@ def edit(id):
 
     return render_template('publish.html', form = form)
 
+@app.route('/delete/<int:id>')
+@login_required
+def delete(id):
+    entry = Entry.query.filter_by(id = id).first()
+    db.session.delete(entry)
+    db.session.commit()
+    return redirect('/index')
