@@ -12,4 +12,4 @@ class LoginForm(Form):
 
 class EditForm(Form):
     title = TextField('title', validators = [Required()])
-    entry = TextAreaField('entry', validators = [Required()]) 
+    content = TextAreaField('entry', validators = [Required()]) 

@@ -19,7 +19,7 @@ def index():
     entries  = Entry.all_entries().all()
     return render_template('index.html', entries = entries) 
 
-@app.route('/entry/<int:id>')
+@app.route('/entry/<int:id>', methods = ['GET', 'POST'])
 def entry(id):
     if id < 0:
         flash("Sorry! Con't find this entry!")
@@ -28,6 +28,7 @@ def entry(id):
     if entry == None:
         flash("Sorry! Con't find this entry!")
         return redirect('index')
+
     return render_template('entry.html', entry = entry)
 
 @app.route('/login', methods = ['GET', 'POST'])
@@ -56,13 +57,13 @@ def logout():
     flash("Log out")
     return redirect(url_for('index'))
 
-@app.route('/edit', methods = ['GET', 'POST'])
+@app.route('/publish', methods = ['GET', 'POST'])
 @login_required
-def edit():
+def publish():
     form = EditForm()
     if form.validate_on_submit():
         entry = Entry(title = form.title.data, 
-                     content = form.entry.data,
+                     content = form.content.data,
                      pub_date = datetime.now())
         try:
             db.session.add(entry)
@@ -72,4 +73,29 @@ def edit():
             return redirect('/edit')
         flash('Publich success!')
         return redirect('/entry/%d'%(entry.id))
-    return render_template('edit.html',form = form)
+    return render_template('publish.html',form = form)
+
+@app.route('/edit/<int:id>', methods = ['GET', 'POST'])
+@login_required
+def edit(id):
+    entry = Entry.query.filter_by(id = id).first()
+    if entry == None:
+        flash('entry error')
+        return redirect(url_for('index'))
+    form = EditForm(obj = entry)
+
+    if form.validate_on_submit():
+        entry.title = form.title.data
+        entry.content = form.content.data
+        entry.pub_date = datetime.now()
+        try:
+            db.session.add(entry)
+            db.session.commit()
+        except:
+            flash('Database error!')
+            return redirect('/edit/%d'%entry.id)
+        flash('Edit success!')
+        return redirect('/entry/%d'%(entry.id))
+
+    return render_template('publish.html', form = form)
+

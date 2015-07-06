@@ -2,13 +2,13 @@
 
 {% block content %}
 <h1>Edit your entry</h1>
-<form action="" method="POST" name="edit">
+<form action="" method="{{ method | d("POST") }}" name="edit">
     {{form.hidden_tag()}}
     <table>
         <tr>
             <td>title</td>
             <td>
-                {{ form.title(size = 24) }}
+                {{ form.title(size = 70, placeholder = "Title") }}
                 {% for error in form.errors.title %}
                 <br><span style="color:red;">{{ error }}</span>
                 {% endfor %}
@@ -16,7 +16,7 @@
         </tr>
         <tr>
             <td>content</td>
-            <td>{{ form.entry(cols = 32, rows = 10,size = 30) }}</td>
+            <td>{{ form.content(cols = 50, rows = 20) }}</td>
         </tr>
         <tr>
             <td></td>
