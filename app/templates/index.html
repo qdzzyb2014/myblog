@@ -2,14 +2,18 @@
 
 {% block content %}
 
-{% block title %}Blog entries{% endblock %}
-
 {% include 'flash.html' %}
 
 {% for entry in entries %}
-<h3>
-    <a href='{{ url_for('entry', id = entry.id) }}'>{{ entry.title }}</a>
-</h3>
-<p>Created {{ entry.pub_date.strftime('%m/%d/%Y at %G:%I%p') }}</p>
+  <!-- Main Content -->
+<div class="post-preview">
+        <a href="{{ url_for('entry', id = entry.id) }}">
+                <h2 class="post-title">
+                    {{ entry.title }}
+                </h2>
+        </a>
+        <p class="post-meta">Created on {{ entry.pub_date }}</p>
+</div>
+<hr>
 {% endfor %}
 {% endblock %}
